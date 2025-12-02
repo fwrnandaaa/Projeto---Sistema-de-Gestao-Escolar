@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+html {
+    height: 100%;
+}
+
+header {
+    background-color: #016B61;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    gap: 1%;
+    color: white;
+    font-family: 'Manrope', sans-serif;
+
+}
+
+header img {
+    width: 4%;
+    height: 4%;
+}
+
+footer {
+    background-color: #016B61;
+    color: white;
+    font-family: 'Manrope', sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+}

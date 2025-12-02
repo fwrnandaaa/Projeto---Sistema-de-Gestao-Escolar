@@ -10,7 +10,7 @@ class Aluno(models.Model):
     data_ingresso = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Aluno: {self.nome} - Email: {self.email} - Data de ingresso: {self.data_ingresso}'
+        return f'Aluno: {self.nome} - Email: {self.email} - CPF: {self.cpf} - Data de ingresso: {self.data_ingresso}'
 
     def clean(self):
         erros = {}
