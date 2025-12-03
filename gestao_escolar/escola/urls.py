@@ -11,4 +11,7 @@ rota.register(r'matriculas', MatriculaViewSet)
 urlpatterns = [
     path('api/', include(rota.urls)),
     path('', views.home, name='home'),
+    path('alunos/', views.alunos, name='alunos'),
+    path('cursos/', views.cursos, name='cursos'),
+    path('relatorios', views.relatorios, name='relatorios'),
 ]

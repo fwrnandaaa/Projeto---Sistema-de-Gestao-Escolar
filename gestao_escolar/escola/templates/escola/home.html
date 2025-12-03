@@ -1,0 +1,38 @@
+{% extends 'escola/base.html' %}
+
+{% block content %}
+<section class="relatorios-dashboard">
+
+    <div class="cards-linha">
+        <div class="card">
+            <h3>Visão geral</h3>
+            <p>Total de cursos:</p>
+            <p class="numero">{{ total_cursos }}</p>
+            <p>Total de alunos:</p>
+            <p class="numero">{{ total_alunos }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Financeiro</h3>
+            <p>Total de matrículas pagas:</p>
+            <p class="numero">{{ total_matriculas_pagas }}</p>
+        </div>
+    </div>
+
+    <div class="cards-linha">
+        <div class="card">
+            <h3>Pendências</h3>
+            <p>Pagamentos pendentes:</p>
+            <p class="numero">{{ total_pendentes }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Atalhos</h3>
+            <button class="atalho-btn">Cadastrar aluno +</button>
+            <button class="atalho-btn">Cadastrar curso +</button>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

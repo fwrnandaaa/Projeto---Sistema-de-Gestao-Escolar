@@ -1,3 +1,7 @@
+html {
+    height: 100%;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,14 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
-
-main {
-    flex: 1;
-}
-
-html {
-    height: 100%;
+    font-family: 'Manrope', sans-serif;
 }
 
 header {
@@ -23,11 +20,9 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1%;
+    padding: 0.5%;
     gap: 1%;
     color: white;
-    font-family: 'Manrope', sans-serif;
-
 }
 
 header img {
@@ -35,10 +30,15 @@ header img {
     height: 4%;
 }
 
+main {
+    flex: 1;
+    display: flex; 
+ 
+}
+
 footer {
     background-color: #016B61;
     color: white;
-    font-family: 'Manrope', sans-serif;
     display: flex;
     justify-content: center;
     padding: 1%;

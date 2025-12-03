@@ -1,0 +1,46 @@
+.relatorios-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cards-linha {
+  display: flex;
+  gap: 24px;
+}
+
+.card {
+  background-color: #70B2B2;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  flex: 1;
+}
+
+.card h3 {
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: #184347;
+  margin: 4px 0;
+}
+
+.card .numero {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.atalho-btn {
+  display: block;
+  width: fit-content;
+  margin-top: 12px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background-color: #016B61;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}

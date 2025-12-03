@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/escola/css/base.css">
     <link rel="stylesheet" href="../../static/escola/css/barra_lateral.css">
-    
+    <link rel="stylesheet" href="../../static/escola/css/home.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
@@ -21,8 +22,11 @@
     </header>
     <main>
         {% include 'escola/barra_lateral.html' %}
-        {% block content %}{% endblock %}
+        <div class="conteudo">
+            {% block content %}{% endblock %}
+        </div>
     </main>
+
     <footer>
         <p>Sistema de Gestão Escolar – Projeto Desenvolvido para Desafio Técnico 2026.1</p>
     </footer>

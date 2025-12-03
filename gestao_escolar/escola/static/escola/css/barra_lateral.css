@@ -1,7 +1,29 @@
-
-#barra-lateral{
-    border: 1px solid green;
-    width: 20%;
-    height: 100%;
-
+#barra-lateral {
+  background-color: rgba(112, 178, 178, 0.82);
+  width: 20%;
+  font-family: 'Manrope', sans-serif;
+  font-weight: bold;
 }
+
+#barra-lateral ul {
+  list-style: none;
+}
+
+#barra-lateral li {
+  border-bottom: 1px solid #016B61; 
+}
+
+#barra-lateral a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #ffffff;             
+  font-weight: 400;            
+  letter-spacing: 0.05em;     
+}
+
+#barra-lateral a:hover {
+  background-color: rgba(1, 107, 97, 0.1);
+}
+
+
