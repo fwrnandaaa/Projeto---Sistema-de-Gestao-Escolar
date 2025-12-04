@@ -1,0 +1,43 @@
+{% extends 'escola/base.html' %}
+
+{% block content %}
+<section class="cadastro-container">
+    <h2>Cadastrar curso</h2>
+
+    {% if mensagem %}
+        <div class="mensagem-sucesso">{{ mensagem }}</div>
+    {% endif %}
+
+    <form method="POST" class="formulario-cadastro">
+        {% csrf_token %}
+
+        <div class="campo">
+            <label>Nome do curso</label>
+            <input type="text" name="nome" required>
+        </div>
+
+        <div class="campo">
+            <label>Carga horária (em horas)</label>
+            <input type="number" name="carga_horaria" min="1" required>
+        </div>
+
+        <div class="campo">
+            <label>Valor da inscrição (R$)</label>
+            <input type="number" name="valor_inscricao" step="0.01" min="0" required>
+        </div>
+
+        <div class="campo">
+            <label>Status</label>
+            <select name="status">
+                <option value="ATIVO">Ativo</option>
+                <option value="INATIVO">Inativo</option>
+            </select>
+        </div>
+
+        <div class="botoes">
+            <button type="submit" class="btn-principal">Cadastrar</button>
+            <a href="{% url 'cursos' %}" class="btn-secundario">Voltar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
