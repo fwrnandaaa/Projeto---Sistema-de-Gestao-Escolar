@@ -1,20 +1,30 @@
+
+
 .relatorios-dashboard {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  max-width: 900px;    
+  margin: 0 auto;       
+  padding: 20px 0;      
 }
+
 
 .cards-linha {
   display: flex;
   gap: 24px;
+  justify-content: center;
+  
 }
+
 
 .card {
   background-color: #70B2B2;
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  flex: 1;
+  flex: 1;                  /* Cards com larguras iguais */
+  min-width: 250px;         /* Evita ficar muito pequeno */
 }
 
 .card h3 {
@@ -28,19 +38,28 @@
 }
 
 .card .numero {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
+  padding-left: 10%;
 }
+
 
 .atalho-btn {
   display: block;
-  width: fit-content;
+  text-align: center;       
+  text-decoration: none;    
+  width: 100%;
   margin-top: 12px;
-  padding: 8px 16px;
+  padding: 10px 0;
   border-radius: 999px;
-  border: none;
   background-color: #016B61;
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.atalho-btn:hover {
+  background-color: #014e47;
+  transform: scale(1.02);
 }

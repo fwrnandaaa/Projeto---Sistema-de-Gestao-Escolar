@@ -1,0 +1,70 @@
+.cadastro-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #70B2B2;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.cadastro-container h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.formulario-cadastro {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.campo label {
+  color: #184347;
+  font-weight: 600;
+}
+
+.campo input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #e6f2f2;
+  color: #184347;
+  font-size: 15px;
+}
+
+.botoes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-principal {
+  padding: 10px 24px;
+  background: #016B61;
+  color: white;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-secundario {
+  padding: 10px 24px;
+  background: white;
+  color: #016B61;
+  border-radius: 999px;
+  border: 2px solid #016B61;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mensagem-sucesso {
+  background: #014e45;
+  padding: 12px;
+  border-radius: 10px;
+  color: #fff;
+  margin-bottom: 12px;
+  text-align: center;
+}

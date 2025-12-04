@@ -1,0 +1,40 @@
+{% extends 'escola/base.html' %}
+
+{% block content %}
+<section class="cadastro-container">
+    <h2>Cadastrar aluno</h2>
+
+    {% if mensagem %}
+        <div class="mensagem-sucesso">{{ mensagem }}</div>
+    {% endif %}
+
+    <form method="POST" class="formulario-cadastro">
+        {% csrf_token %}
+
+        <div class="campo">
+            <label>Nome completo</label>
+            <input type="text" name="nome" required>
+        </div>
+
+        <div class="campo">
+            <label>Email</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="campo">
+            <label>CPF</label>
+            <input type="text" name="cpf" required>
+        </div>
+
+        <div class="campo">
+            <label>Data de nascimento</label>
+            <input type="date" name="data_nascimento" required>
+        </div>
+
+        <div class="botoes">
+            <button type="submit" class="btn-principal">Cadastrar</button>
+            <a href="{% url 'alunos' %}" class="btn-secundario">Voltar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
