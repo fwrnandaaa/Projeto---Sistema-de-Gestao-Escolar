@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from escola.services.alunoservices import AlunoService
+from escola.services.cursoservices import CursoService
 from django.core.exceptions import ValidationError
 
 
@@ -34,3 +35,30 @@ def cadastrar_aluno(request):
             })
 
     return render(request, 'escola/cadastrar_aluno.html')
+
+def cadastrar_curso(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        carga_horaria = request.POST.get('carga_horaria')
+        valor_inscricao = request.POST.get('valor_inscricao')
+        status = request.POST.get('status', 'ATIVO')
+
+        try:
+            carga_horaria = int(carga_horaria)
+            valor_inscricao = float(valor_inscricao)
+
+            CursoService.criar_curso(nome, carga_horaria, valor_inscricao, status)
+            return render(request, 'escola/cadastrar_curso.html', {
+                'mensagem': 'Curso cadastrado com sucesso!'
+            })
+
+        except ValidationError as e:
+            return render(request, 'escola/cadastrar_curso.html', {
+                'mensagem': str(e)
+            })
+        except ValueError:
+            return render(request, 'escola/cadastrar_curso.html', {
+                'mensagem': 'Valores de carga horária ou valor da inscrição inválidos.'
+            })
+
+    return render(request, 'escola/cadastrar_curso.html')
