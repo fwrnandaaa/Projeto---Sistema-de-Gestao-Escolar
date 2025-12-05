@@ -1,1 +1,61 @@
 {% extends 'escola/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="cursos-container">
+
+    <h1>Gerenciar cursos</h1>
+
+    <div class="cursos-top-bar">
+        <a class="btn-cadastrar" href="{% url 'cadastrar_curso' %}">
+            Cadastrar curso +
+        </a>
+
+        <form method="GET" class="search-box">
+            <input type="text" name="q" placeholder="Buscar curso..." value="{{ request.GET.q }}">
+            <button type="submit"><i class="fa-solid fa-search"></i></button>
+        </form>
+    </div>
+
+    <div class="cursos-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Carga horária</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th class="center">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for curso in cursos %}
+                <tr>
+                    <td>{{ curso.nome }}</td>
+                    <td>{{ curso.carga_horaria }}h</td>
+                    <td>R$ {{ curso.valor_inscricao }}</td>
+                    <td>{{ curso.status }}</td>
+
+                    <td class="center actions">
+                        <a href="{% url 'editar_curso' curso.id %}" class="edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <a href="{% url 'deletar_curso' curso.id %}" class="delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="center">Nenhum curso encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+{% endblock %}

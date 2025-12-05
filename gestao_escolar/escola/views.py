@@ -4,7 +4,6 @@ from escola.services.cursoservices import CursoService
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 
-#TODO: Verificar o motivo da imagem do header sumir quando está na página de editar usuário
 
 def home(request):
     contexto = AlunoService.obter_dados_home()
@@ -18,6 +17,7 @@ def alunos(request):
     return render(request, 'escola/alunos.html', {
         'alunos': lista
     })
+
 def editar_aluno(request, id):
     aluno = Aluno.objects.get(id=id)
 
@@ -35,6 +35,7 @@ def editar_aluno(request, id):
     return render(request, 'escola/editar_aluno.html', {
         'aluno': aluno
     })
+
 def cadastrar_aluno(request):
     if request.method == 'POST':
         nome = request.POST.get('nome')
@@ -78,12 +79,17 @@ def deletar_aluno(request, cpf):
 
     return redirect("alunos")
 
-
+#TODO: Verificar o motivo da imagem do header sumir quando está na página de editar usuário
 
 
 
 def cursos(request):
-    return render(request, 'escola/cursos.html')
+    busca = request.GET.get("q", "")
+    if busca:
+        cursos = CursoService.listar_cursos_filtrados(busca)
+    else:
+        cursos = CursoService.listar_cursos()
+    return render(request, "escola/cursos.html", {"cursos": cursos})
 
 def relatorios(request):
     return render(request, 'escola/relatorios.html')
@@ -133,3 +139,38 @@ def cadastrar_curso(request):
             })
 
     return render(request, 'escola/cadastrar_curso.html')
+
+def editar_curso(request, id):
+    curso = CursoService.obter_curso_por_id(id)
+
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        carga_horaria = request.POST.get("carga_horaria")
+        valor_inscricao = request.POST.get("valor_inscricao")
+        status = request.POST.get("status")
+
+        try:
+            CursoService.atualizar_curso(
+                id,
+                nome=nome,
+                carga_horaria=carga_horaria,
+                valor_inscricao=valor_inscricao,
+                status=status
+            )
+
+            messages.success(request, "Curso atualizado com sucesso!")
+            return redirect("cursos")
+
+        except ValidationError as e:
+            messages.error(request, str(e))
+
+    return render(request, "escola/editar_curso.html", {"curso": curso})
+    
+def deletar_curso(request, id):
+    try:
+        CursoService.remover_curso(id)
+        messages.success(request, "Curso deletado com sucesso!")
+    except ValidationError as e:
+        messages.error(request, str(e))
+
+    return redirect("cursos")

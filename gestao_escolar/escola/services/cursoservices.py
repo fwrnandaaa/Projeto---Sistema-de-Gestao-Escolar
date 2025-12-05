@@ -21,3 +21,29 @@ class CursoService:
 
         curso.save()
         return curso
+        
+    @staticmethod
+    def listar_cursos_filtrados(texto):
+        return Curso.objects.filter(nome__icontains=texto).order_by("nome")
+
+    @staticmethod
+    def obter_curso_por_id(id):
+        return Curso.objects.get(id=id)
+
+    @staticmethod
+    def atualizar_curso(id, nome=None, carga_horaria=None, valor_inscricao=None, status=None):
+        curso = Curso.objects.get(id=id)
+
+        if nome: curso.nome = nome
+        if carga_horaria: curso.carga_horaria = carga_horaria
+        if valor_inscricao: curso.valor_inscricao = valor_inscricao
+        if status: curso.status = status
+
+        curso.save()
+        return curso
+
+    @staticmethod
+    def remover_curso(id):
+        curso = Curso.objects.get(id=id)
+        curso.delete()
+        return True
