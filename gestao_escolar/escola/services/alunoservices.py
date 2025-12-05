@@ -29,3 +29,27 @@ class AlunoService:
         aluno = Aluno(nome=nome, email=email, cpf=cpf) 
         aluno.save()
         return aluno
+    @staticmethod
+    def obter_aluno_por_cpf(cpf):
+        return Aluno.objects.get(cpf=cpf)
+
+    @staticmethod
+    def atualizar_aluno_por_cpf(cpf, nome=None, email=None):
+        aluno = Aluno.objects.get(cpf=cpf)
+
+        if email and Aluno.objects.filter(email=email).exclude(cpf=cpf).exists():
+            raise ValidationError("Já existe outro aluno com esse e-mail.")
+
+        if nome:
+            aluno.nome = nome
+        if email:
+            aluno.email = email
+
+        aluno.save()
+        return aluno
+
+    @staticmethod
+    def remover_aluno_por_cpf(cpf):
+        aluno = Aluno.objects.get(cpf=cpf)
+        aluno.delete()
+        return True

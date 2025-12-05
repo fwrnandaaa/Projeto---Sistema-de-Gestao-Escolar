@@ -48,8 +48,9 @@ class Curso(models.Model):
 class Matricula(models.Model):
     data_matricula = models.DateField(default=date.today)
     status = models.CharField(max_length=20,choices=[('PAGO','Pago'),('PENDENTE','Pendente')],default='PENDENTE')
-    aluno = models.ForeignKey(Aluno,on_delete=models.PROTECT,related_name='matriculas')
-    curso = models.ForeignKey(Curso,on_delete=models.PROTECT,related_name='matriculas')
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, related_name='matriculas')
+
+    curso = models.ForeignKey(Curso,on_delete=models.CASCADE, related_name='matriculas')
 
     def __str__(self):
         s = f'Aluno: {self.aluno.nome} - Curso: {self.curso.nome} - '

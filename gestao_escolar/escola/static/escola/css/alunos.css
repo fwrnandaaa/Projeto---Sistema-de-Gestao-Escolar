@@ -1,0 +1,132 @@
+
+.alunos-container {
+    width: 85%;
+    padding-top: 35px;
+    text-align: center;
+}
+
+.alunos-container h1 {
+    color: #d5724a;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.alunos-top-bar {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.btn-cadastrar {
+    background: #207b5a;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: .25s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    line-height: 1;       
+}
+
+
+.btn-cadastrar:hover {
+    background: #176648;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #d2d2d2;
+    border-radius: 25px;
+    padding-left: 15px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 230px;
+}
+
+.search-box button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #207b5a;
+    font-size: 16px;
+}
+
+.alunos-card {
+    background: #e1f1ed;
+    padding: 25px;
+    border-radius: 18px;
+    width: 150%;
+    margin: 0 auto;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background: #c8e7df;
+}
+
+th, td {
+    padding: 10px 10px;
+    text-align: left;
+}
+
+th {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+tbody tr {
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background: #f5fffb;
+}
+
+.actions i {
+    font-size: 17px;
+    cursor: pointer;
+    margin: 0 8px;
+    transition: .2s;
+}
+
+.actions .edit {
+    color: #207b5a;
+}
+
+.actions .edit:hover {
+    color: #15533e;
+}
+
+.actions .delete {
+    color: #d95050;
+}
+
+.actions .delete:hover {
+    color: #a73232;
+}
+
+.center {
+    text-align: center;
+}

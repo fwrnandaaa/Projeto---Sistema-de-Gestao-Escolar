@@ -1,0 +1,37 @@
+{% extends 'escola/base.html' %}
+{% load static %}
+{% block content %}
+<section class="cadastro-container">
+    <h2>Editar aluno</h2>
+
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="mensagem-sucesso">{{ msg }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="formulario-cadastro">
+        {% csrf_token %}
+
+        <div class="campo">
+            <label>Nome completo</label>
+            <input type="text" name="nome" value="{{ aluno.nome }}" required>
+        </div>
+
+        <div class="campo">
+            <label>Email</label>
+            <input type="email" name="email" value="{{ aluno.email }}" required>
+        </div>
+
+        <div class="campo">
+            <label>CPF</label>
+            <input type="text" name="cpf" value="{{ aluno.cpf }}" readonly>
+        </div>
+
+        <div class="botoes">
+            <button type="submit" class="btn-principal">Salvar alterações</button>
+            <a href="{% url 'alunos' %}" class="btn-secundario">Voltar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

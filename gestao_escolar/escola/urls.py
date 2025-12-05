@@ -8,6 +8,8 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     path('alunos/', views.alunos, name='alunos'),
+    path("alunos/editar/<str:cpf>/", views.editar_aluno, name="editar_aluno"),
+    path("alunos/deletar/<str:cpf>/", views.deletar_aluno, name="deletar_aluno"),
     path('cursos/', views.cursos, name='cursos'),
     path('relatorios/', views.relatorios, name='relatorios'),
     path('alunos/cadastrar/', views.cadastrar_aluno, name='cadastrar_aluno'),

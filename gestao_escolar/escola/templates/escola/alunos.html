@@ -1,1 +1,61 @@
 {% extends 'escola/base.html' %}
+
+{% block content %}
+
+<section class="alunos-container">
+
+    <h1>Gerenciar alunos</h1>
+
+    <!-- TOPO: botão + busca -->
+    <div class="alunos-top-bar">
+        <a class="btn-cadastrar" href="{% url 'cadastrar_aluno' %}">
+            Cadastrar aluno +
+        </a>
+
+        <form method="GET" class="search-box">
+            <input type="text" name="q" placeholder="Buscar aluno..." value="{{ request.GET.q }}">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+
+    <div class="alunos-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>Data de ingresso</th>
+                    <th class="center">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno.nome }}</td>
+                    <td>{{ aluno.email }}</td>
+                    <td>{{ aluno.cpf }}</td>
+                    <td>{{ aluno.data_ingresso|date:"d/m/Y" }}</td>
+
+                    <td class="center actions">
+                        <a href="{% url 'editar_aluno' aluno.cpf %}" class="edit">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <a href="{% url 'deletar_aluno' aluno.cpf %}" class="delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="center">Nenhum aluno encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+{% endblock %}

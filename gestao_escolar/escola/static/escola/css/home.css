@@ -1,35 +1,37 @@
-
-
 .relatorios-dashboard {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: 900px;    
-  margin: 0 auto;       
-  padding: 20px 0;      
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 0;
 }
-
 
 .cards-linha {
   display: flex;
   gap: 24px;
   justify-content: center;
-  
 }
 
-
 .card {
-  background-color: #70B2B2;
-  border-radius: 16px;
+  background-color: #E1F1ED;
+  border-radius: 18px;
   padding: 24px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  flex: 1;                  /* Cards com larguras iguais */
-  min-width: 250px;         /* Evita ficar muito pequeno */
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  flex: 1;
+  min-width: 260px;
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
 }
 
 .card h3 {
-  color: #ffffff;
-  margin-bottom: 12px;
+  color: #207B5A;
+  font-weight: 700;
+  margin-bottom: 14px;
 }
 
 .card p {
@@ -40,26 +42,26 @@
 .card .numero {
   font-size: 30px;
   font-weight: 700;
-  padding-left: 10%;
+  color: #176648;
+  padding-left: 8px;
 }
-
 
 .atalho-btn {
   display: block;
-  text-align: center;       
-  text-decoration: none;    
+  text-align: center;
   width: 100%;
-  margin-top: 12px;
-  padding: 10px 0;
+  margin-top: 16px;
+  padding: 12px 0;
   border-radius: 999px;
-  background-color: #016B61;
+  background-color: #207B5A;
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  text-decoration: none;
+  transition: 0.25s ease;
 }
 
 .atalho-btn:hover {
-  background-color: #014e47;
-  transform: scale(1.02);
+  background-color: #176648;
+  transform: scale(1.03);
 }
