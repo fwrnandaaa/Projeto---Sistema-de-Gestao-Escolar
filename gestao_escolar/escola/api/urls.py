@@ -2,7 +2,8 @@ from django.urls import path
 
 from .alunos import AlunoList, AlunoDetail, AlunoMatriculas, AlunoTotalDevido
 from .cursos import CursoList, CursoDetail, CursoTotalMatriculas
-from .matriculas import  MatriculaList, MatriculaDetail, MatriculaPagar, MatriculaPendencias, TotalMatriculasPorCurso
+from .matriculas import  (MatriculaList, MatriculaDetail, MatriculaPagar, 
+                          MatriculaPendencias, TotalMatriculasPorCurso, matriculas_por_curso)
 
 urlpatterns = [
     path('alunos/', AlunoList.as_view(), name='listar-alunos'),
@@ -16,5 +17,6 @@ urlpatterns = [
     path('matriculas/<int:pk>/pagar/', MatriculaPagar.as_view(), name='pagar-matricula'),
     path('matriculas/pendentes/', MatriculaPendencias.as_view(), name='matriculas-pendentes'),
     path('relatorios/matriculas-por-curso/', TotalMatriculasPorCurso.as_view()),
+    path('matriculas-por-curso/', matriculas_por_curso, name='matriculas_por_curso'),
    
 ]

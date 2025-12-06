@@ -2,6 +2,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from django.db.models import Count
+from django.http import JsonResponse
+from django.db import connection
 
 
 from escola.models import Matricula, Aluno, Curso
@@ -67,3 +69,25 @@ class TotalMatriculasPorCurso(APIView):
         )
 
         return Response(list(dados))
+    
+def matriculas_por_curso(request):
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT c.nome AS curso,
+                   COUNT(m.id) AS total_matriculas
+            FROM escola_curso c
+            LEFT JOIN escola_matricula m ON m.curso_id = c.id
+            GROUP BY c.nome
+            ORDER BY c.nome;
+        """)
+        dados = cursor.fetchall()
+
+    # dados fica assim: [('ADS', 10), ('TI', 5)]
+
+    return JsonResponse({
+        "resultados": [
+            {"curso": row[0], "total_matriculas": row[1]} 
+            for row in dados
+        ]
+    })
