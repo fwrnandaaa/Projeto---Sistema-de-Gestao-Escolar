@@ -1,0 +1,44 @@
+{% extends 'escola/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="cadastro-container">
+    <h2>Editar matrícula</h2>
+
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="mensagem-sucesso">{{ msg }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="formulario-cadastro">
+        {% csrf_token %}
+        <div class="campo">
+            <label>Aluno</label>
+            <input type="text" value="{{ matricula.aluno.nome }}" readonly>
+        </div>
+        <div class="campo">
+            <label>Curso</label>
+            <input type="text" value="{{ matricula.curso.nome }}" readonly>
+        </div>
+
+        <div class="campo">
+            <label>Status de pagamento</label>
+            <select name="status_pagamento" required>
+                <option value="PENDENTE" {% if matricula.status_pagamento == "PENDENTE" %}selected{% endif %}>
+                    Pendente
+                </option>
+
+                <option value="PAGO" {% if matricula.status_pagamento == "PAGO" %}selected{% endif %}>
+                    Pago
+                </option>
+            </select>
+        </div>
+
+        <div class="botoes">
+            <button type="submit" class="btn-principal">Salvar alterações</button>
+            <a href="{% url 'matriculas' %}" class="btn-secundario">Voltar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

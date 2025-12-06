@@ -36,8 +36,8 @@ class Curso(models.Model):
 
     def clean(self):
         erros = {}
-        if len(self.nome) < 10:
-            erros['nome']='O nome do curso deve ter pelo menos 10 caracteres.'
+        if len(self.nome) < 5:
+            erros['nome']='O nome do curso deve ter pelo menos 5 caracteres.'
         if self.carga_horaria < 1:
             erros['carga_horaria']='A carga horária do curso não pode ser negativa.'
         if self.valor_inscricao < 0:

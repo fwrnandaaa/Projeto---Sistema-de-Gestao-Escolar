@@ -51,3 +51,34 @@ footer {
     padding: 1%;
 }
 
+.mensagens-container {
+    width: 100%;
+    padding: 10px 30px;
+}
+
+.alert {
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.alert.success {
+    background-color: #d1f7d8;
+    color: #0f7b1b;
+}
+
+.alert.error {
+    background-color: #f7d1d1;
+    color: #7b0f0f;
+}
+
+.alert.warning {
+    background-color: #fff3c4;
+    color: #7b5d00;
+}
+
+.alert.info {
+    background-color: #d6e9ff;
+    color: #0b3d91;
+}

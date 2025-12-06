@@ -3,6 +3,7 @@ from escola.services.alunoservices import AlunoService
 from escola.services.cursoservices import CursoService
 from escola.services.matriculasservice import MatriculaService
 from django.core.exceptions import ValidationError
+from escola.utils import GerenciadorMensagem
 from django.contrib import messages
 
 
@@ -20,39 +21,46 @@ def alunos(request):
     })
 
 def editar_aluno(request, id):
-    aluno = Aluno.objects.get(id=id)
 
-    if request.method == 'POST':
-        aluno.nome = request.POST.get('nome')
-        aluno.email = request.POST.get('email')
-        aluno.cpf = request.POST.get('cpf')
-        aluno.save()
+    aluno = AlunoService.obter_aluno_por_id(id)
 
-        return render(request, 'escola/editar_aluno.html', {
-            'aluno': aluno,
-            'mensagem': 'Dados atualizados com sucesso!'
-        })
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        cpf = request.POST.get("cpf")
 
-    return render(request, 'escola/editar_aluno.html', {
-        'aluno': aluno
+        try:
+            AlunoService.editar_aluno(id, nome, email, cpf)
+
+            messages.success(request, "Aluno atualizado com sucesso!")
+            return redirect("alunos")
+
+        except ValidationError as e:
+            for msg in e.messages:
+                messages.error(request, msg)
+
+    return render(request, "escola/editar_aluno.html", {
+        "aluno": aluno
     })
 
+
 def cadastrar_aluno(request):
-    if request.method == 'POST':
-        nome = request.POST.get('nome')
-        cpf = request.POST.get('cpf')
-        email = request.POST.get('email')
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        cpf = request.POST.get("cpf")
+
         try:
             AlunoService.criar_aluno(nome, email, cpf)
-            return render(request, 'escola/cadastrar_aluno.html', {
-                'mensagem': 'Aluno cadastrado com sucesso!'
-            })
-        except ValidationError as e:
-            return render(request, 'escola/cadastrar_aluno.html', {
-                'mensagem': e.message
-            })
+            GerenciadorMensagem.processar_mensagem_sucesso(
+                request, "Aluno cadastrado com sucesso!"
+            )
+            return redirect("cadastrar_aluno")
 
-    return render(request, 'escola/cadastrar_aluno.html')
+        except ValidationError as e:
+            GerenciadorMensagem.processar_mensagem_erro(request, e)
+
+    return render(request, "escola/cadastrar_aluno.html")
 
 def deletar_aluno(request, cpf):
     try:
@@ -79,31 +87,31 @@ def matriculas(request):
     return render(request, "escola/matriculas.html", contexto)
 
 def cadastrar_curso(request):
-    if request.method == 'POST':
-        nome = request.POST.get('nome')
-        carga_horaria = request.POST.get('carga_horaria')
-        valor_inscricao = request.POST.get('valor_inscricao')
-        status = request.POST.get('status', 'ATIVO')
+
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        carga_horaria = request.POST.get("carga_horaria")
+        valor_inscricao = request.POST.get("valor_inscricao")
+        status = request.POST.get("status", "ATIVO")
 
         try:
             carga_horaria = int(carga_horaria)
             valor_inscricao = float(valor_inscricao)
 
             CursoService.criar_curso(nome, carga_horaria, valor_inscricao, status)
-            return render(request, 'escola/cadastrar_curso.html', {
-                'mensagem': 'Curso cadastrado com sucesso!'
-            })
+
+            messages.success(request, "Curso cadastrado com sucesso!")
+            return redirect("cadastrar_curso")
 
         except ValidationError as e:
-            return render(request, 'escola/cadastrar_curso.html', {
-                'mensagem': str(e)
-            })
-        except ValueError:
-            return render(request, 'escola/cadastrar_curso.html', {
-                'mensagem': 'Valores de carga horária ou valor da inscrição inválidos.'
-            })
+            for msg in e.messages:
+                messages.error(request, msg)
 
-    return render(request, 'escola/cadastrar_curso.html')
+        except ValueError:
+            messages.error(request, "Valores inválidos.")
+
+    return render(request, "escola/cadastrar_curso.html")
+
 
 def editar_curso(request, id):
     curso = CursoService.obter_curso_por_id(id)
@@ -161,18 +169,23 @@ def cadastrar_matricula(request):
     })
 
 def editar_matricula(request, id):
+
     matricula = MatriculaService.obter_matricula(id)
 
     if request.method == "POST":
-        MatriculaService.editar_matricula(id, request.POST)
-        return redirect("matriculas")
+        try:
+            dados = {
+                "status": request.POST.get("status")
+            }
+            MatriculaService.editar_matricula(id, dados)
+            messages.success(request, "Status atualizado com sucesso!")
+            return redirect("matriculas")
+        except Exception as e:
+            messages.error(request, str(e))
 
     return render(request, "escola/editar_matricula.html", {
-        "matricula": matricula,
-        "alunos": Aluno.objects.all(),
-        "cursos": Curso.objects.all(),
+        "matricula": matricula
     })
-
 def deletar_matricula(request, id):
     MatriculaService.deletar_matricula(id)
     return redirect("matriculas")

@@ -39,8 +39,11 @@
                     <td>{{ m.status }}</td>
 
                     <td class="center actions">
+                         <a href="{% url 'editar_matricula' m.id %}" class="edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
                         <a href="{% url 'deletar_matricula' m.id %}" class="delete">
-                            <i class="fa-solid fa-trash"></i>
+                      
                         </a>
                     </td>
                 </tr>

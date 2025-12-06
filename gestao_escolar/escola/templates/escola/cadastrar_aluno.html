@@ -4,10 +4,6 @@
 <section class="cadastro-container">
     <h2>Cadastrar aluno</h2>
 
-    {% if mensagem %}
-        <div class="mensagem-sucesso">{{ mensagem }}</div>
-    {% endif %}
-
     <form method="POST" class="formulario-cadastro">
         {% csrf_token %}
 

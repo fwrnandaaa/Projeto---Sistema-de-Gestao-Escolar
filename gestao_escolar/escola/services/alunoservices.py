@@ -22,16 +22,22 @@ class AlunoService:
             'total_pendentes': total_pendentes,
         }
     @staticmethod
-    def criar_aluno(nome, email, cpf):  
+    def criar_aluno(nome, email, cpf):
+        aluno = Aluno(nome=nome, email=email, cpf=cpf)
 
-        if Aluno.objects.filter(email=email).exists():  
-            raise ValidationError("Já existe um aluno com esse e-mail.")
-        aluno = Aluno(nome=nome, email=email, cpf=cpf) 
-        aluno.save()
-        return aluno
+        try:
+            aluno.full_clean()  
+            aluno.save()
+            return aluno
+
+        except ValidationError as e:
+            raise e
+
+        except Exception as e:
+            raise ValidationError(f"Erro inesperado ao criar aluno: {str(e)}")
     @staticmethod
-    def obter_aluno_por_cpf(cpf):
-        return Aluno.objects.get(cpf=cpf)
+    def obter_aluno_por_id(id):
+        return Aluno.objects.get(id=id)
 
     @staticmethod
     def atualizar_aluno_por_cpf(cpf, nome=None, email=None):
@@ -53,3 +59,22 @@ class AlunoService:
         aluno = Aluno.objects.get(cpf=cpf)
         aluno.delete()
         return True
+    @staticmethod
+    def editar_aluno(id, nome, email, cpf):
+
+        aluno = Aluno.objects.get(id=id)
+
+        aluno.nome = nome
+        aluno.email = email
+        aluno.cpf = cpf
+
+        try:
+            aluno.full_clean()    # validações do modelo
+            aluno.save()
+            return aluno
+
+        except ValidationError as e:
+            raise e
+
+        except Exception as e:
+            raise ValidationError(f"Erro inesperado ao atualizar aluno: {str(e)}")

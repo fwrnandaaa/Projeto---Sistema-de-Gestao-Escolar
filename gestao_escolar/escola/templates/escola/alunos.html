@@ -39,11 +39,11 @@
                     <td>{{ aluno.data_ingresso|date:"d/m/Y" }}</td>
 
                     <td class="center actions">
-                        <a href="{% url 'editar_aluno' aluno.cpf %}" class="edit">
+                        <a href="{% url 'editar_aluno' aluno.id %}" class="edit">
                             <i class="fas fa-pen"></i>
                         </a>
                         <a href="{% url 'deletar_aluno' aluno.cpf %}" class="delete">
-                            <i class="fas fa-trash"></i>
+                           
                         </a>
                     </td>
                 </tr>

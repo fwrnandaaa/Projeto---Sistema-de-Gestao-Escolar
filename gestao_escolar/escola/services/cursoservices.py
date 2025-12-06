@@ -9,8 +9,6 @@ class CursoService:
 
     @staticmethod
     def criar_curso(nome, carga_horaria, valor_inscricao, status='ATIVO'):
-        if Curso.objects.filter(nome=nome).exists():
-            raise ValidationError("Já existe um curso com esse nome.")
 
         curso = Curso(
             nome=nome,
@@ -19,8 +17,16 @@ class CursoService:
             status=status
         )
 
-        curso.save()
-        return curso
+        try:
+            curso.full_clean()     
+            curso.save()
+            return curso
+
+        except ValidationError as e:
+            raise e  
+
+        except Exception as e:
+            raise ValidationError(f"Erro inesperado ao criar curso: {str(e)}")
         
     @staticmethod
     def listar_cursos_filtrados(texto):
