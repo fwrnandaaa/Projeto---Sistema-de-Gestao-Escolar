@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from escola.services.alunoservices import AlunoService
 from escola.services.cursoservices import CursoService
+from escola.services.matriculasservice import MatriculaService
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 
@@ -53,23 +54,6 @@ def cadastrar_aluno(request):
 
     return render(request, 'escola/cadastrar_aluno.html')
 
-def editar_aluno(request, cpf):
-    aluno = AlunoService.obter_aluno_por_cpf(cpf)
-
-    if request.method == "POST":
-        nome = request.POST.get("nome")
-        email = request.POST.get("email")
-
-        try:
-            AlunoService.atualizar_aluno_por_cpf(cpf, nome=nome, email=email)
-            messages.success(request, "Aluno atualizado com sucesso!")
-            return redirect("alunos")
-
-        except ValidationError as e:
-            messages.error(request, str(e))
-
-    return render(request, "escola/editar_aluno.html", {"aluno": aluno})
-
 def deletar_aluno(request, cpf):
     try:
         AlunoService.remover_aluno_por_cpf(cpf)
@@ -79,10 +63,6 @@ def deletar_aluno(request, cpf):
 
     return redirect("alunos")
 
-#TODO: Verificar o motivo da imagem do header sumir quando está na página de editar usuário
-
-
-
 def cursos(request):
     busca = request.GET.get("q", "")
     if busca:
@@ -91,27 +71,12 @@ def cursos(request):
         cursos = CursoService.listar_cursos()
     return render(request, "escola/cursos.html", {"cursos": cursos})
 
-def relatorios(request):
-    return render(request, 'escola/relatorios.html')
-
-def cadastrar_aluno(request):
-
-    if request.method == 'POST':
-        nome = request.POST.get('nome')
-        cpf = request.POST.get('cpf')
-        email = request.POST.get('email')
-
-        try:
-            aluno = AlunoService.criar_aluno(nome, email, cpf)
-            return render(request, 'escola/cadastrar_aluno.html', {
-                'mensagem': 'Aluno cadastrado com sucesso!'
-            })
-        except ValidationError as e:
-            return render(request, 'escola/cadastrar_aluno.html', {
-                'mensagem': str(e)
-            })
-
-    return render(request, 'escola/cadastrar_aluno.html')
+def matriculas(request):
+    q = request.GET.get("q")
+    contexto = {
+        "matriculas": MatriculaService.listar_matriculas(q)
+    }
+    return render(request, "escola/matriculas.html", contexto)
 
 def cadastrar_curso(request):
     if request.method == 'POST':
@@ -174,3 +139,40 @@ def deletar_curso(request, id):
         messages.error(request, str(e))
 
     return redirect("cursos")
+
+def cadastrar_matricula(request):
+    if request.method == "POST":
+        aluno_id = request.POST.get("aluno")
+        curso_id = request.POST.get("curso")
+        data_matricula = request.POST.get("data_matricula")
+        status = request.POST.get("status", "PENDENTE")
+
+        MatriculaService.criar_matricula(aluno_id, curso_id, data_matricula, status)
+
+        return render(request, "escola/cadastrar_matricula.html", {
+            "mensagem": "Matrícula cadastrada com sucesso!",
+            "alunos": AlunoService.listar_alunos(),
+            "cursos": CursoService.listar_cursos(),
+        })
+
+    return render(request, "escola/cadastrar_matricula.html", {
+        "alunos": AlunoService.listar_alunos(),
+        "cursos": CursoService.listar_cursos(),
+    })
+
+def editar_matricula(request, id):
+    matricula = MatriculaService.obter_matricula(id)
+
+    if request.method == "POST":
+        MatriculaService.editar_matricula(id, request.POST)
+        return redirect("matriculas")
+
+    return render(request, "escola/editar_matricula.html", {
+        "matricula": matricula,
+        "alunos": Aluno.objects.all(),
+        "cursos": Curso.objects.all(),
+    })
+
+def deletar_matricula(request, id):
+    MatriculaService.deletar_matricula(id)
+    return redirect("matriculas")

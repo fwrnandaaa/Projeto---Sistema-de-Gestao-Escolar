@@ -1,0 +1,53 @@
+{% extends 'escola/base.html' %}
+
+{% block content %}
+<section class="cadastro-container">
+    <h2>Cadastrar matrícula</h2>
+
+    {% if mensagem %}
+        <div class="mensagem-sucesso">{{ mensagem }}</div>
+    {% endif %}
+
+    <form method="POST" class="formulario-cadastro">
+        {% csrf_token %}
+
+        <div class="campo">
+            <label>Aluno</label>
+            <select name="aluno" required>
+                <option value="">Selecione um aluno</option>
+                {% for aluno in alunos %}
+                      <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>Curso</label>
+            <select name="curso" required>
+                <option value="">Selecione um curso</option>
+                {% for curso in cursos %}
+                    <option value="{{ curso.id }}">{{ curso.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>Data da matrícula</label>
+            <input type="date" name="data_matricula" required>
+        </div>
+
+        <div class="campo">
+            <label>Status</label>
+            <select name="status" required>
+                <option value="PENDENTE">Pendente</option>
+                <option value="PAGO">Pago</option>
+            </select>
+        </div>
+
+        <div class="botoes">
+            <button type="submit" class="btn-principal">Cadastrar</button>
+            <a href="{% url 'matriculas' %}" class="btn-secundario">Voltar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

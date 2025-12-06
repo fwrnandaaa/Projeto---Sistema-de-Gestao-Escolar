@@ -1,6 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from django.db.models import Count
+
 
 from escola.models import Matricula, Aluno, Curso
 from escola.serializers import MatriculaSerializer, AlunoSerializer, CursoSerializer
@@ -56,3 +58,12 @@ class MatriculaPendencias(APIView):
             "total_matriculas_pendentes": pendentes.count(),
             "valor_total_pendente": float(total)
         })
+class TotalMatriculasPorCurso(APIView):
+    def get(self, request):
+        dados = (
+            Curso.objects
+            .annotate(total_matriculas=Count('matriculas'))
+            .values('id', 'nome', 'total_matriculas')
+        )
+
+        return Response(list(dados))
