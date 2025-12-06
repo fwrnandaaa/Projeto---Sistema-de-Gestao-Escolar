@@ -39,12 +39,8 @@ git clone https://github.com/fwrnandaaa/Projeto---Sistema-de-Gestao-Escolar.git
 ```bash
 cd gestao_escolar
 ```
-### 3. Rode via Docker
-```bash
-docker-compose up --build
-```
 
-### 4. Construa e inicie os containers
+### 3. Construa e inicie os containers
 ```bash
 docker-compose up --build
 ```

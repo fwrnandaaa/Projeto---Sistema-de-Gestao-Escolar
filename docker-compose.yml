@@ -1,8 +1,12 @@
 version: "3.8"  
+
 services:
   web:
     build: .
     container_name: gestao_escolar
+    command: >
+      sh -c "python gestao_escolar/manage.py migrate &&
+             python gestao_escolar/manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     volumes:
