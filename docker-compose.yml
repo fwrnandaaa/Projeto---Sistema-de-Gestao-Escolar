@@ -1,4 +1,4 @@
-version: "3.8"  
+
 
 services:
   web:
@@ -9,7 +9,6 @@ services:
              python gestao_escolar/manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
+
     environment:
       - PYTHONUNBUFFERED=1
